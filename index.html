@@ -7,11 +7,7 @@
 
   <style>
     /* RESET */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: Arial, sans-serif;
@@ -20,11 +16,7 @@
       line-height: 1.6;
     }
 
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
+    img { width: 100%; height: auto; border-radius: 8px; }
 
     /* NAVIGATION */
     .nav-header {
@@ -49,9 +41,7 @@
       font-weight: bold;
     }
 
-    .nav-logo span {
-      color: #ffb400;
-    }
+    .nav-logo span { color: #ffb400; }
 
     .nav-menu {
       display: flex;
@@ -64,9 +54,7 @@
       font-size: clamp(0.9rem, 1.5vw, 1rem);
     }
 
-    .nav-link:hover {
-      color: #ffb400;
-    }
+    .nav-link:hover { color: #ffb400; }
 
     .nav-cta {
       background: #ffb400;
@@ -75,7 +63,6 @@
       border-radius: 4px;
       font-weight: bold;
       text-decoration: none;
-      font-size: clamp(0.9rem, 1.5vw, 1rem);
     }
 
     .nav-toggle {
@@ -96,18 +83,9 @@
         padding: 20px;
         border-left: 1px solid #222b36;
       }
-
-      .nav-menu.open {
-        display: flex;
-      }
-
-      .nav-toggle {
-        display: block;
-      }
-
-      .nav-cta {
-        display: none;
-      }
+      .nav-menu.open { display: flex; }
+      .nav-toggle { display: block; }
+      .nav-cta { display: none; }
     }
 
     /* HERO */
@@ -116,7 +94,8 @@
       background-size: cover;
       background-position: center;
       position: relative;
-      padding: 120px 24px;
+      padding: 140px 24px;
+      text-align: left;
     }
 
     .hero::before {
@@ -130,36 +109,29 @@
     .hero-inner {
       position: relative;
       z-index: 2;
-      max-width: 1200px;
+      max-width: 900px;
       margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      align-items: center;
     }
 
     .hero-title {
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
       font-weight: bold;
       line-height: 1.2;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
-    .hero-title span {
-      color: #ffb400;
-    }
+    .hero-title span { color: #ffb400; }
 
     .hero-subtext {
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-size: clamp(1rem, 2vw, 1.25rem);
       color: #d0d4da;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin-bottom: 28px;
     }
 
     .btn-primary,
@@ -168,7 +140,6 @@
       border-radius: 4px;
       font-weight: bold;
       text-decoration: none;
-      font-size: clamp(0.9rem, 1.5vw, 1rem);
     }
 
     .btn-primary {
@@ -181,12 +152,49 @@
       color: #ffb400;
     }
 
-    .hero-card {
-      background: #151c26;
-      padding: 24px;
-      border-radius: 8px;
-      border: 1px solid #222b36;
+    /* SWIPING SLIDER */
+    .slider-section {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 24px;
     }
+
+    .slider-container {
+      overflow: hidden;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.35s ease;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      flex-shrink: 0;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .dots {
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      margin: 0 4px;
+      background: #444;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .dot.active { background: #ffb400; }
 
     /* SPLIT SECTIONS */
     .split {
@@ -219,10 +227,7 @@
       border: 1px solid #222b36;
     }
 
-    .service-card h3 {
-      color: #ffb400;
-      margin-bottom: 10px;
-    }
+    .service-card h3 { color: #ffb400; margin-bottom: 10px; }
 
     /* FLOATING CALL BUTTON */
     .floating-call {
@@ -238,7 +243,6 @@
       box-shadow: 0 0 18px rgba(255,180,0,0.6);
       z-index: 999;
       transition: 0.3s;
-      font-size: 1rem;
     }
 
     .floating-call:hover {
@@ -246,14 +250,12 @@
       box-shadow: 0 0 25px rgba(255,180,0,0.9);
     }
 
-    /* FOOTER */
     footer {
       background: #000;
       padding: 20px;
       text-align: center;
       color: #a7b0bd;
       margin-top: 40px;
-      font-size: clamp(0.9rem, 1.5vw, 1rem);
     }
   </style>
 </head>
@@ -278,48 +280,43 @@
   </header>
 
   <script>
-    const navToggle = document.getElementById("navToggle");
-    const navMenu = document.querySelector(".nav-menu");
-    navToggle.addEventListener("click", () => {
-      navMenu.classList.toggle("open");
-    });
+    document.getElementById("navToggle").onclick = () =>
+      document.querySelector(".nav-menu").classList.toggle("open");
   </script>
 
-  <!-- HERO -->
+  <!-- HERO (NO GRAY BOX) -->
   <section class="hero">
     <div class="hero-inner">
 
-      <div>
-        <h1 class="hero-title">
-          Mobile Mechanic Service<br>
-          <span>Fast. Reliable. On‑Site.</span>
-        </h1>
+      <h1 class="hero-title">
+        Mobile Mechanic Service<br>
+        <span>Fast. Reliable. On‑Site.</span>
+      </h1>
 
-        <p class="hero-subtext">
-          Professional automotive repair delivered directly to your driveway, workplace, or roadside.
-          Skip the tow truck and get back on the road with confidence.
-        </p>
+      <p class="hero-subtext">
+        Professional automotive repair delivered directly to your driveway, workplace, or roadside.
+        Skip the tow truck and get back on the road with confidence.
+      </p>
 
-        <div class="hero-buttons">
-          <a href="tel:7084381640" class="btn-primary">Call Now</a>
-          <a href="#services" class="btn-secondary">View Services</a>
-        </div>
-      </div>
-
-      <div class="hero-card">
-        <h2 style="color:#ffb400;">Why Choose Us?</h2>
-        <ul>
-          <li>Certified Mobile Mechanic</li>
-          <li>Fast Response Time</li>
-          <li>Affordable Pricing</li>
-          <li>We Come to You</li>
-        </ul>
-
-        <div class="phone">📞 708‑438‑1640</div>
-        <div class="hours">Available 7 Days a Week</div>
+      <div class="hero-buttons">
+        <a href="tel:7084381640" class="btn-primary">Call Now</a>
+        <a href="#services" class="btn-secondary">View Services</a>
       </div>
 
     </div>
+  </section>
+
+  <!-- SWIPING SLIDER -->
+  <section class="slider-section">
+    <div class="slider-container" id="slider">
+      <div class="slides">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600">
+        <img src="https://images.unsplash.com/photo-1515923162077-1a3f2d7f1f5b?q=80&w=1600">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1600">
+      </div>
+    </div>
+
+    <div class="dots" id="dots"></div>
   </section>
 
   <!-- SERVICES -->
@@ -368,10 +365,6 @@
       <h2 class="split-title">About Torque Wrench</h2>
       <p>Torque Wrench Mobile Mechanic delivers professional automotive repair services directly to your location. With years of hands‑on experience and a commitment to honest, reliable work, we make car repair convenient and stress‑free.</p>
     </div>
-
-    <div>
-      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800">
-    </div>
   </section>
 
   <!-- CONTACT -->
@@ -382,10 +375,6 @@
       <p><strong>📧 penaluis746@gmail.com</strong></p>
       <p>Serving Chicago, Suburbs, and Surrounding Areas</p>
     </div>
-
-    <div>
-      <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800">
-    </div>
   </section>
 
   <!-- FLOATING CALL BUTTON -->
@@ -394,6 +383,80 @@
   <footer>
     © 2026 Torque Wrench Mobile Mechanic — All Rights Reserved
   </footer>
+
+  <!-- SWIPING SLIDER SCRIPT -->
+  <script>
+    const slider = document.getElementById("slider");
+    const slides = slider.querySelector(".slides");
+    const dotsContainer = document.getElementById("dots");
+
+    let index = 0;
+    const total = slides.children.length;
+
+    /* Create dots */
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      dot.addEventListener("click", () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateDots() {
+      const dots = document.querySelectorAll(".dot");
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    function goToSlide(i) {
+      index = i;
+      slides.style.transform = `translateX(${-index * 100}%)`;
+      updateDots();
+    }
+
+    /* Auto-play */
+    setInterval(() => {
+      index = (index + 1) % total;
+      goToSlide(index);
+    }, 4000);
+
+    /* Swipe + Drag */
+    let startX = 0;
+    let isDragging = false;
+
+    slider.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    slider.addEventListener("touchend", e => {
+      if (!isDragging) return;
+      let endX = e.changedTouches[0].clientX;
+
+      if (startX - endX > 50) index = (index + 1) % total;
+      if (endX - startX > 50) index = (index - 1 + total) % total;
+
+      goToSlide(index);
+      isDragging = false;
+    });
+
+    slider.addEventListener("mousedown", e => {
+      startX = e.clientX;
+      isDragging = true;
+    });
+
+    slider.addEventListener("mouseup", e => {
+      if (!isDragging) return;
+      let endX = e.clientX;
+
+      if (startX - endX > 50) index = (index + 1) % total;
+      if (endX - startX > 50) index = (index - 1 + total) % total;
+
+      goToSlide(index);
+      isDragging = false;
+    });
+
+    goToSlide(0);
+  </script>
 
 </body>
 </html>
