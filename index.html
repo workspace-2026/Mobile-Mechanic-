@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Torque Wrench Mobile Mechanic</title>
+
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f141a;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* NAVIGATION */
+    .nav-header {
+      background: #111820;
+      border-bottom: 1px solid #222b36;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-weight: bold;
+    }
+
+    .nav-logo span {
+      color: #ffb400;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-link {
+      color: #f5f5f5;
+      text-decoration: none;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .nav-link:hover {
+      color: #ffb400;
+    }
+
+    .nav-cta {
+      background: #ffb400;
+      color: #111820;
+      padding: 10px 18px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .nav-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        background: #111820;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 220px;
+        padding: 20px;
+        border-left: 1px solid #222b36;
+      }
+
+      .nav-menu.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+    }
+
+    /* HERO */
+    .hero {
+      background-image: url('https://images.unsplash.com/photo-1515923162077-1a3f2d7f1f5b?q=80&w=1920');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      padding: 120px 24px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(2px);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: bold;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: #ffb400;
+    }
+
+    .hero-subtext {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #d0d4da;
+      margin-bottom: 24px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 12px 22px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+
+    .btn-primary {
+      background: #ffb400;
+      color: #111820;
+    }
+
+    .btn-secondary {
+      border: 1px solid #ffb400;
+      color: #ffb400;
+    }
+
+    .hero-card {
+      background: #151c26;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid #222b36;
+    }
+
+    /* SPLIT SECTIONS */
+    .split {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .split-title {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      margin-bottom: 16px;
+      color: #ffb400;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      background: #151c26;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #222b36;
+    }
+
+    .service-card h3 {
+      color: #ffb400;
+      margin-bottom: 10px;
+    }
+
+    /* FLOATING CALL BUTTON */
+    .floating-call {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #ffb400;
+      color: #111820;
+      padding: 16px 22px;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 18px rgba(255,180,0,0.6);
+      z-index: 999;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .floating-call:hover {
+      background: #ffc94d;
+      box-shadow: 0 0 25px rgba(255,180,0,0.9);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #000;
+      padding: 20px;
+      text-align: center;
+      color: #a7b0bd;
+      margin-top: 40px;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="nav-header">
+    <div class="nav-container">
+      <div class="nav-logo">Torque <span>Wrench</span></div>
+
+      <nav class="nav-menu">
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <a href="tel:7084381640" class="nav-cta">Call Now</a>
+
+      <div class="nav-toggle" id="navToggle">☰</div>
+    </div>
+  </header>
+
+  <script>
+    const navToggle = document.getElementById("navToggle");
+    const navMenu = document.querySelector(".nav-menu");
+    navToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("open");
+    });
+  </script>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <div>
+        <h1 class="hero-title">
+          Mobile Mechanic Service<br>
+          <span>Fast. Reliable. On‑Site.</span>
+        </h1>
+
+        <p class="hero-subtext">
+          Professional automotive repair delivered directly to your driveway, workplace, or roadside.
+          Skip the tow truck and get back on the road with confidence.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="tel:7084381640" class="btn-primary">Call Now</a>
+          <a href="#services" class="btn-secondary">View Services</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h2 style="color:#ffb400;">Why Choose Us?</h2>
+        <ul>
+          <li>Certified Mobile Mechanic</li>
+          <li>Fast Response Time</li>
+          <li>Affordable Pricing</li>
+          <li>We Come to You</li>
+        </ul>
+
+        <div class="phone">📞 708‑438‑1640</div>
+        <div class="hours">Available 7 Days a Week</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="split">
+    <div>
+      <h2 class="split-title">Our Services</h2>
+      <p>Full mobile mechanic services at your home, job site, or roadside. Fast, affordable, and professional.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Brake Repair</h3>
+        <p>On‑site brake pad replacement, rotor service, and full brake inspections.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Diagnostics</h3>
+        <p>Check engine light? We run full diagnostics and explain the issue clearly.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Oil Changes</h3>
+        <p>Quick and clean mobile oil changes at your home or workplace.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Battery Service</h3>
+        <p>Jump starts, battery testing, and full battery replacement on‑site.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Suspension & Steering</h3>
+        <p>Ball joints, tie rods, control arms, and more — done at your location.</p>
+      </div>
+
+      <div class="service-card">
+        <h3>Emergency Roadside</h3>
+        <p>Stranded? We offer fast roadside assistance and minor repairs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="split">
+    <div>
+      <h2 class="split-title">About Torque Wrench</h2>
+      <p>Torque Wrench Mobile Mechanic delivers professional automotive repair services directly to your location. With years of hands‑on experience and a commitment to honest, reliable work, we make car repair convenient and stress‑free.</p>
+    </div>
+
+    <div>
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800">
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="split">
+    <div>
+      <h2 class="split-title">Contact Us</h2>
+      <p><strong>📞 708‑438‑1640</strong></p>
+      <p><strong>📧 penaluis746@gmail.com</strong></p>
+      <p>Serving Chicago, Suburbs, and Surrounding Areas</p>
+    </div>
+
+    <div>
+      <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800">
+    </div>
+  </section>
+
+  <!-- FLOATING CALL BUTTON -->
+  <a href="tel:7084381640" class="floating-call">📞 Call Now</a>
+
+  <footer>
+    © 2026 Torque Wrench Mobile Mechanic — All Rights Reserved
+  </footer>
+
+</body>
+</html>
