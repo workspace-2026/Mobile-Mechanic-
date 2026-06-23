@@ -18,71 +18,103 @@
 
     img { width: 100%; height: auto; border-radius: 8px; }
 
-    /* NAVIGATION */
+    /* 🔥 CATCHY NAVIGATION */
     .nav-header {
-      background: #111820;
-      border-bottom: 1px solid #222b36;
+      background: #0c1116;
+      border-bottom: 1px solid #1c242e;
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
     }
 
     .nav-container {
       max-width: 1200px;
       margin: auto;
-      padding: 16px 24px;
+      padding: 18px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .nav-logo {
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      font-weight: bold;
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #fff;
     }
 
-    .nav-logo span { color: #ffb400; }
+    .nav-logo span {
+      color: #ffb400;
+      text-shadow: 0 0 8px rgba(255,180,0,0.6);
+    }
 
     .nav-menu {
       display: flex;
-      gap: 28px;
+      gap: 32px;
+      align-items: center;
     }
 
     .nav-link {
-      color: #f5f5f5;
+      position: relative;
+      color: #e6e6e6;
       text-decoration: none;
-      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding-bottom: 4px;
     }
 
-    .nav-link:hover { color: #ffb400; }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0%;
+      height: 2px;
+      background: #ffb400;
+      transition: 0.3s ease;
+    }
+
+    .nav-link:hover::after { width: 100%; }
 
     .nav-cta {
       background: #ffb400;
       color: #111820;
-      padding: 10px 18px;
-      border-radius: 4px;
-      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 700;
       text-decoration: none;
+      box-shadow: 0 0 10px rgba(255,180,0,0.4);
+      transition: 0.3s;
+    }
+
+    .nav-cta:hover {
+      background: #ffd35c;
+      box-shadow: 0 0 14px rgba(255,180,0,0.7);
     }
 
     .nav-toggle {
       display: none;
-      font-size: 1.8rem;
+      font-size: 2rem;
       cursor: pointer;
+      color: #ffb400;
     }
 
     @media (max-width: 768px) {
       .nav-menu {
         display: none;
         flex-direction: column;
-        background: #111820;
+        background: #0c1116;
         position: absolute;
         top: 70px;
         right: 0;
         width: 220px;
         padding: 20px;
-        border-left: 1px solid #222b36;
+        border-left: 1px solid #1c242e;
+        border-bottom: 1px solid #1c242e;
       }
+
       .nav-menu.open { display: flex; }
       .nav-toggle { display: block; }
       .nav-cta { display: none; }
@@ -95,7 +127,6 @@
       background-position: center;
       position: relative;
       padding: 140px 24px;
-      text-align: left;
     }
 
     .hero::before {
@@ -115,7 +146,7 @@
 
     .hero-title {
       font-size: clamp(2.2rem, 4vw, 3.2rem);
-      font-weight: bold;
+      font-weight: 900;
       line-height: 1.2;
       margin-bottom: 18px;
     }
@@ -196,38 +227,49 @@
 
     .dot.active { background: #ffb400; }
 
-    /* SPLIT SECTIONS */
+    /* MAIN CONTENT UPDATED */
     .split {
       max-width: 1200px;
       margin: auto;
-      padding: 60px 24px;
+      padding: 70px 24px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
+      gap: 50px;
       align-items: center;
     }
 
     .split-title {
-      font-size: clamp(1.6rem, 3vw, 2rem);
-      margin-bottom: 16px;
+      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      margin-bottom: 18px;
       color: #ffb400;
+      font-weight: 800;
     }
 
-    /* SERVICES */
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
 
     .service-card {
       background: #151c26;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 24px;
+      border-radius: 10px;
       border: 1px solid #222b36;
+      transition: 0.3s;
     }
 
-    .service-card h3 { color: #ffb400; margin-bottom: 10px; }
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: #ffb400;
+      box-shadow: 0 0 12px rgba(255,180,0,0.2);
+    }
+
+    .service-card h3 {
+      color: #ffb400;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
 
     /* FLOATING CALL BUTTON */
     .floating-call {
@@ -262,7 +304,7 @@
 
 <body>
 
-  <!-- NAVIGATION -->
+  <!-- NAV -->
   <header class="nav-header">
     <div class="nav-container">
       <div class="nav-logo">Torque <span>Wrench</span></div>
@@ -284,7 +326,7 @@
       document.querySelector(".nav-menu").classList.toggle("open");
   </script>
 
-  <!-- HERO (NO GRAY BOX) -->
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
 
@@ -310,9 +352,34 @@
   <section class="slider-section">
     <div class="slider-container" id="slider">
       <div class="slides">
-        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600">
-        <img src="https://images.unsplash.com/photo-1515923162077-1a3f2d7f1f5b?q=80&w=1600">
-        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1600">
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20221027_103401.jpg">
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech7.jpg">
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech5.jpg">
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech2.jpg">
+        
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech.jpg">
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mec3.jpg">
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/Screenshot_20230530-155944_Yelp%20Biz.jpg">
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230825_212709.jpg">
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230825_212649.jpg">
+        
+<img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230825_212637.jpg">
+
+
+        
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230120_193843.jpg">
+        
+        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230120_182830.jpg">
+        
+      
       </div>
     </div>
 
@@ -393,7 +460,6 @@
     let index = 0;
     const total = slides.children.length;
 
-    /* Create dots */
     for (let i = 0; i < total; i++) {
       const dot = document.createElement("span");
       dot.classList.add("dot");
@@ -413,13 +479,11 @@
       updateDots();
     }
 
-    /* Auto-play */
     setInterval(() => {
       index = (index + 1) % total;
       goToSlide(index);
     }, 4000);
 
-    /* Swipe + Drag */
     let startX = 0;
     let isDragging = false;
 
