@@ -355,31 +355,15 @@
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20221027_103401.jpg">
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech7.jpg">
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech5.jpg">
-        
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech2.jpg">
-        
-        
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mech.jpg">
-        
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/mec3.jpg">
-        
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/Screenshot_20230530-155944_Yelp%20Biz.jpg">
-        
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230825_212709.jpg">
-        
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230825_212649.jpg">
-        
-<img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230825_212637.jpg">
-
-
-        
-        
+        <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230825_212637.jpg">
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230120_193843.jpg">
-        
-        
         <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/20230120_182830.jpg">
-        
-      
       </div>
     </div>
 
@@ -431,8 +415,15 @@
     <div>
       <h2 class="split-title">About Mech-Tech</h2>
       <p>Mech-Tech Mobile Mechanic delivers professional automotive repair services directly to your location. With years of hands‑on experience and a commitment to honest, reliable work, we make car repair convenient and stress‑free.</p>
-     <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/Screenshot_20231112-022514_Maps.jpg">
-      <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/Screenshot_20231112-022839_Maps.jpg">
+      
+      <!-- SECOND SLIDER FOR ABOUT SECTION -->
+      <div class="slider-container" id="aboutSlider" style="margin-top: 24px;">
+        <div class="slides" id="aboutSlides">
+          <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/Screenshot_20231112-022514_Maps.jpg">
+          <img src="https://raw.githubusercontent.com/workspace-2026/Mobile-Mechanic-/refs/heads/main/Screenshot_20231112-022839_Maps.jpg">
+        </div>
+      </div>
+      <div class="dots" id="aboutDots"></div>
     </div>
   </section>
 
@@ -455,73 +446,78 @@
 
   <!-- SWIPING SLIDER SCRIPT -->
   <script>
-    const slider = document.getElementById("slider");
-    const slides = slider.querySelector(".slides");
-    const dotsContainer = document.getElementById("dots");
+    function initSlider(sliderId, dotsId) {
+      const slider = document.getElementById(sliderId);
+      const slides = slider.querySelector(".slides");
+      const dotsContainer = document.getElementById(dotsId);
 
-    let index = 0;
-    const total = slides.children.length;
+      let index = 0;
+      const total = slides.children.length;
 
-    for (let i = 0; i < total; i++) {
-      const dot = document.createElement("span");
-      dot.classList.add("dot");
-      dot.addEventListener("click", () => goToSlide(i));
-      dotsContainer.appendChild(dot);
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        dot.addEventListener("click", () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+
+      function updateDots() {
+        const dots = dotsContainer.querySelectorAll(".dot");
+        dots.forEach(dot => dot.classList.remove("active"));
+        if (dots[index]) dots[index].classList.add("active");
+      }
+
+      function goToSlide(i) {
+        index = i;
+        slides.style.transform = `translateX(${-index * 100}%)`;
+        updateDots();
+      }
+
+      setInterval(() => {
+        index = (index + 1) % total;
+        goToSlide(index);
+      }, 4000);
+
+      let startX = 0;
+      let isDragging = false;
+
+      slider.addEventListener("touchstart", e => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      });
+
+      slider.addEventListener("touchend", e => {
+        if (!isDragging) return;
+        let endX = e.changedTouches[0].clientX;
+
+        if (startX - endX > 50) index = (index + 1) % total;
+        if (endX - startX > 50) index = (index - 1 + total) % total;
+
+        goToSlide(index);
+        isDragging = false;
+      });
+
+      slider.addEventListener("mousedown", e => {
+        startX = e.clientX;
+        isDragging = true;
+      });
+
+      slider.addEventListener("mouseup", e => {
+        if (!isDragging) return;
+        let endX = e.clientX;
+
+        if (startX - endX > 50) index = (index + 1) % total;
+        if (endX - startX > 50) index = (index - 1 + total) % total;
+
+        goToSlide(index);
+        isDragging = false;
+      });
+
+      goToSlide(0);
     }
 
-    function updateDots() {
-      const dots = document.querySelectorAll(".dot");
-      dots.forEach(dot => dot.classList.remove("active"));
-      dots[index].classList.add("active");
-    }
-
-    function goToSlide(i) {
-      index = i;
-      slides.style.transform = `translateX(${-index * 100}%)`;
-      updateDots();
-    }
-
-    setInterval(() => {
-      index = (index + 1) % total;
-      goToSlide(index);
-    }, 4000);
-
-    let startX = 0;
-    let isDragging = false;
-
-    slider.addEventListener("touchstart", e => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-    });
-
-    slider.addEventListener("touchend", e => {
-      if (!isDragging) return;
-      let endX = e.changedTouches[0].clientX;
-
-      if (startX - endX > 50) index = (index + 1) % total;
-      if (endX - startX > 50) index = (index - 1 + total) % total;
-
-      goToSlide(index);
-      isDragging = false;
-    });
-
-    slider.addEventListener("mousedown", e => {
-      startX = e.clientX;
-      isDragging = true;
-    });
-
-    slider.addEventListener("mouseup", e => {
-      if (!isDragging) return;
-      let endX = e.clientX;
-
-      if (startX - endX > 50) index = (index + 1) % total;
-      if (endX - startX > 50) index = (index - 1 + total) % total;
-
-      goToSlide(index);
-      isDragging = false;
-    });
-
-    goToSlide(0);
+    initSlider("slider", "dots");
+    initSlider("aboutSlider", "aboutDots");
   </script>
 
 </body>
