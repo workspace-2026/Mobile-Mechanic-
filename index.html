@@ -259,7 +259,6 @@
       font-weight: 800;
     }
 
-    /* MAP LINK BUTTON & CENTER CONTAINER */
     .map-btn-container {
       text-align: center;
       margin-top: 24px;
@@ -283,7 +282,7 @@
       box-shadow: 0 0 12px rgba(255,180,0,0.4);
     }
 
-    /* HIGHLY INTERACTIVE SERVICES ACCORDION */
+    /* HIGHLY ACTIVE SERVICES EXPANDABLE LAYOUT */
     .services-wrapper {
       max-width: 1200px;
       margin: auto;
@@ -308,7 +307,7 @@
     }
 
     .interactive-services-list {
-      max-width: 750px;
+      max-width: 800px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -341,7 +340,7 @@
       background: transparent;
       border: none;
       color: #fff;
-      padding: 20px 24px;
+      padding: 22px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -357,7 +356,7 @@
     }
 
     .service-name {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #fff;
     }
@@ -368,8 +367,8 @@
     }
 
     .service-indicator {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       background: #1c2633;
       border-radius: 50%;
       display: flex;
@@ -390,15 +389,15 @@
     .service-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease-out, padding 0.35s ease;
+      transition: max-height 0.4s ease-out, padding 0.4s ease;
       padding: 0 24px;
       border-top: 1px solid transparent;
     }
 
     .service-card.active .service-content {
-      max-height: 220px;
+      max-height: 450px;
       padding: 0 24px 24px 24px;
-      border-top-color: rgba(255, 255, 255, 0.06);
+      border-top-color: rgba(255, 255, 255, 0.08);
     }
 
     .service-description {
@@ -408,18 +407,65 @@
       line-height: 1.5;
     }
 
-    .service-action-row {
+    /* MORE OPTIONS GRID INSIDE EXPANDED CARD */
+    .service-options-box {
       margin-top: 16px;
+      background: #111720;
+      border: 1px solid #232d3d;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .service-options-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffb400;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .service-sub-options-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .service-sub-options-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .service-sub-select {
+      background: #1c242e;
+      border: 1px solid #2b3544;
+      border-radius: 6px;
+      padding: 9px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+      width: 100%;
+    }
+
+    .service-sub-select option {
+      background: #1c242e;
+      color: #fff;
+    }
+
+    .service-action-row {
+      margin-top: 18px;
       display: flex;
       justify-content: flex-end;
+      gap: 12px;
     }
 
     .service-book-btn {
       background: #ffb400;
       color: #111820;
-      padding: 9px 18px;
+      padding: 10px 20px;
       border-radius: 6px;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: bold;
       border: none;
       cursor: pointer;
@@ -436,7 +482,7 @@
       margin-top: 35px;
     }
 
-    /* MODAL POPUP FOR CAR & CLIENT OPTIONS */
+    /* MODAL POPUP */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -725,8 +771,7 @@
 
       <p class="hero-subtext">
         Welcome to Mech-Tech Mobile Mechanic — your trusted choice for honest, high‑quality automotive repair. 
-        We keep Illinois drivers moving with accurate diagnostics, solid workmanship, and straightforward communication. 
-        From brakes and engine work to electrical issues and full inspections, our team delivers reliable repairs done right the first time.
+        We keep Illinois drivers moving with accurate diagnostics, solid workmanship, and straightforward communication.
       </p>
 
       <div class="hero-buttons">
@@ -757,52 +802,96 @@
     <div class="dots" id="dots"></div>
   </section>
 
-  <!-- INTERACTIVE ACCORDION SERVICES -->
+  <!-- INTERACTIVE EXPANDABLE SERVICES WITH DEEP OPTIONS -->
   <section id="services" class="services-wrapper">
     <div class="services-header">
-      <h2 class="split-title">Our Services</h2>
-      <p>Click any service to view details and provide your vehicle & contact options.</p>
+      <h2 class="split-title">Interactive Services Menu</h2>
+      <p>Click any service box below to open detailed info, pick custom component options, and book instantly.</p>
     </div>
 
     <div class="interactive-services-list">
       
       <!-- Service 1 -->
-      <div class="service-card">
-        <button class="service-toggle-btn">
+      <div class="service-card" id="card-brake">
+        <button class="service-toggle-btn" onclick="toggleService('card-brake')">
           <div class="service-title-area">
             <span class="service-name">🔧 Brake Repair & Service</span>
-            <span class="service-hint">Pads, Rotors, Calipers & Fluid Checks</span>
+            <span class="service-hint">Pads, Rotors, Calipers & System Bleeding</span>
           </div>
           <div class="service-indicator">▼</div>
         </button>
         <div class="service-content">
           <p class="service-description">Complete mobile brake service performed right at your driveway or workplace. Includes thorough pad and rotor inspection, replacement, and system bleeding.</p>
+          
+          <div class="service-options-box">
+            <div class="service-options-title">Customize This Request</div>
+            <div class="service-sub-options-row">
+              <div class="form-group">
+                <select id="brakeType" class="service-sub-select">
+                  <option value="Front Pads & Rotors">Front Pads & Rotors</option>
+                  <option value="Rear Pads & Rotors">Rear Pads & Rotors</option>
+                  <option value="All 4 Wheels Service">All 4 Wheels Service</option>
+                  <option value="Brake Caliper Replacement">Brake Caliper Replacement</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="padMaterial" class="service-sub-select">
+                  <option value="Standard Metallic Pads">Standard Metallic Pads</option>
+                  <option value="Ceramic Quiet Pads (Low Dust)">Ceramic Quiet Pads (Low Dust)</option>
+                  <option value="Customer Supplied Parts">Customer Supplied Parts</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModal('Brake Repair & Service')">Book This Service</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('Brake Repair & Service', 'brakeType', 'padMaterial')">Proceed to Booking Form</button>
           </div>
         </div>
       </div>
 
       <!-- Service 2 -->
-      <div class="service-card">
-        <button class="service-toggle-btn">
+      <div class="service-card" id="card-diag">
+        <button class="service-toggle-btn" onclick="toggleService('card-diag')">
           <div class="service-title-area">
             <span class="service-name">💻 Diagnostics & Electrical</span>
-            <span class="service-hint">Check Engine Light, Sensors & Troubleshooting</span>
+            <span class="service-hint">Check Engine Light, Battery, Alternator & Starters</span>
           </div>
           <div class="service-indicator">▼</div>
         </button>
         <div class="service-content">
           <p class="service-description">Advanced computer scanning tools to identify check engine lights, battery faults, starter problems, alternator issues, and electrical gremlins on-site.</p>
+          
+          <div class="service-options-box">
+            <div class="service-options-title">Customize This Request</div>
+            <div class="service-sub-options-row">
+              <div class="form-group">
+                <select id="diagType" class="service-sub-select">
+                  <option value="Check Engine Light Scan & Report">Check Engine Light Scan & Report</option>
+                  <option value="No-Start / Dead Battery Issue">No-Start / Dead Battery Issue</option>
+                  <option value="Alternator / Electrical Draw Test">Alternator / Electrical Draw Test</option>
+                  <option value="Deep Electronic Troubleshooting">Deep Electronic Troubleshooting</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="warningStatus" class="service-sub-select">
+                  <option value="Light is Solid On">Light is Solid On</option>
+                  <option value="Light is Flashing (Urgent)">Light is Flashing (Urgent)</option>
+                  <option value="Intermittent Issue / Random">Intermittent Issue / Random</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModal('Diagnostics & Electrical')">Book This Service</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('Diagnostics & Electrical', 'diagType', 'warningStatus')">Proceed to Booking Form</button>
           </div>
         </div>
       </div>
 
       <!-- Service 3 -->
-      <div class="service-card">
-        <button class="service-toggle-btn">
+      <div class="service-card" id="card-oil">
+        <button class="service-toggle-btn" onclick="toggleService('card-oil')">
           <div class="service-title-area">
             <span class="service-name">🛢️ On-Site Oil Changes</span>
             <span class="service-hint">Quick, Clean Oil & Filter Replacement</span>
@@ -811,15 +900,36 @@
         </button>
         <div class="service-content">
           <p class="service-description">Skip the wait at conventional shops. We come to your location with high-grade oil and filters tailored specifically to your vehicle's specifications.</p>
+          
+          <div class="service-options-box">
+            <div class="service-options-title">Customize This Request</div>
+            <div class="service-sub-options-row">
+              <div class="form-group">
+                <select id="oilType" class="service-sub-select">
+                  <option value="Full Synthetic Oil Change">Full Synthetic Oil Change</option>
+                  <option value="Synthetic Blend Oil Change">Synthetic Blend Oil Change</option>
+                  <option value="High Mileage Oil Change">High Mileage Oil Change</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="oilExtras" class="service-sub-select">
+                  <option value="Include Fluid Top-off & Inspection">Include Fluid Top-off & Inspection</option>
+                  <option value="Include Cabin Air Filter Check">Include Cabin Air Filter Check</option>
+                  <option value="Standard Oil & Filter Only">Standard Oil & Filter Only</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModal('On-Site Oil Changes')">Book This Service</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('On-Site Oil Changes', 'oilType', 'oilExtras')">Proceed to Booking Form</button>
           </div>
         </div>
       </div>
 
       <!-- Service 4 -->
-      <div class="service-card">
-        <button class="service-toggle-btn">
+      <div class="service-card" id="card-suspension">
+        <button class="service-toggle-btn" onclick="toggleService('card-suspension')">
           <div class="service-title-area">
             <span class="service-name">🔩 Suspension & Steering</span>
             <span class="service-hint">Shocks, Struts, Ball Joints & Tie Rods</span>
@@ -828,8 +938,30 @@
         </button>
         <div class="service-content">
           <p class="service-description">Restore smooth handling and a safe, stable ride. We replace worn-out shocks, struts, control arms, and steering components right where your car is parked.</p>
+          
+          <div class="service-options-box">
+            <div class="service-options-title">Customize This Request</div>
+            <div class="service-sub-options-row">
+              <div class="form-group">
+                <select id="suspensionPart" class="service-sub-select">
+                  <option value="Front Struts / Shocks Replacement">Front Struts / Shocks Replacement</option>
+                  <option value="Rear Shocks / Struts Replacement">Rear Shocks / Struts Replacement</option>
+                  <option value="Control Arms / Ball Joints">Control Arms / Ball Joints</option>
+                  <option value="Outer Tie Rod Ends">Outer Tie Rod Ends</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="suspensionSymptom" class="service-sub-select">
+                  <option value="Clunking / Popping Noises">Clunking / Popping Noises</option>
+                  <option value="Rough Ride / Bouncing">Rough Ride / Bouncing</option>
+                  <option value="Steering Pulling / Loose">Steering Pulling / Loose</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModal('Suspension & Steering')">Book This Service</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('Suspension & Steering', 'suspensionPart', 'suspensionSymptom')">Proceed to Booking Form</button>
           </div>
         </div>
       </div>
@@ -841,15 +973,17 @@
     </div>
   </section>
 
-  <!-- ADVANCED CLIENT & CAR MODAL POPUP -->
+  <!-- MODAL POPUP -->
   <div class="modal-overlay" id="carModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeCarModal()">&times;</button>
       <h3 class="modal-title" id="modalServiceTitle">Service Request Form</h3>
-      <p class="modal-subtitle">Customize your vehicle and appointment preferences below.</p>
+      <p class="modal-subtitle">Review your custom options and enter your vehicle details below.</p>
 
       <form class="car-form" onsubmit="submitCarInfo(event)">
         <input type="hidden" id="selectedServiceName">
+        <input type="hidden" id="subOptionOne">
+        <input type="hidden" id="subOptionTwo">
         
         <!-- Contact Options -->
         <div class="form-row">
@@ -927,8 +1061,8 @@
         </div>
 
         <div class="form-group">
-          <label for="carIssue">Specific Issue / Details (Optional)</label>
-          <textarea id="carIssue" class="form-textarea" placeholder="Describe symptoms, noises, or specific requests..."></textarea>
+          <label for="carIssue">Additional Notes / Symptoms (Optional)</label>
+          <textarea id="carIssue" class="form-textarea" placeholder="Describe specific noises, parking gate codes, or special requests..."></textarea>
         </div>
 
         <button type="submit" class="modal-submit-btn">Send Complete Request to Luis</button>
@@ -951,7 +1085,6 @@
       </div>
       <div class="dots" id="aboutDots"></div>
 
-      <!-- CENTERED GOOGLE MAPS LINK BUTTON -->
       <div class="map-btn-container">
         <a href="https://maps.app.goo.gl/EuosWv3PfNHCao9d8?g_st=ac" target="_blank" class="map-link-btn">📍 Open Location on Google Maps</a>
       </div>
@@ -993,24 +1126,29 @@
 
   <!-- SCRIPTS -->
   <script>
-    // Interactive Service Cards Accordion
-    document.querySelectorAll('.service-toggle-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const card = button.parentElement;
-        
-        document.querySelectorAll('.service-card').forEach(otherCard => {
-          if (otherCard !== card) {
-            otherCard.classList.remove('active');
-          }
-        });
-
-        card.classList.toggle('active');
+    // Expandable Service Cards Function
+    function toggleService(cardId) {
+      const card = document.getElementById(cardId);
+      
+      // Close other cards for a cleaner active feel
+      document.querySelectorAll('.service-card').forEach(otherCard => {
+        if (otherCard !== card) {
+          otherCard.classList.remove('active');
+        }
       });
-    });
 
-    // Modal Popup Controls
-    function openCarModal(serviceName) {
+      card.classList.toggle('active');
+    }
+
+    // Open Modal and capture selected sub-options from the expanded card
+    function openCarModalFromService(serviceName, selectId1, selectId2) {
+      const opt1 = document.getElementById(selectId1).value;
+      const opt2 = document.getElementById(selectId2).value;
+
       document.getElementById('selectedServiceName').value = serviceName;
+      document.getElementById('subOptionOne').value = opt1;
+      document.getElementById('subOptionTwo').value = opt2;
+      
       document.getElementById('modalServiceTitle').innerText = 'Request: ' + serviceName;
       document.getElementById('carModal').classList.add('open');
     }
@@ -1019,10 +1157,12 @@
       document.getElementById('carModal').classList.remove('open');
     }
 
-    // Handle Form Submission & Send to Email with all client options included
+    // Handle Form Submission & Send to Email including sub-options
     function submitCarInfo(e) {
       e.preventDefault();
       const service = document.getElementById('selectedServiceName').value;
+      const sub1 = document.getElementById('subOptionOne').value;
+      const sub2 = document.getElementById('subOptionTwo').value;
       const phone = document.getElementById('clientPhone').value;
       const emailInput = document.getElementById('clientEmail').value;
       const contactPref = document.getElementById('contactPref').value;
@@ -1035,11 +1175,14 @@
 
       closeCarModal();
 
-      // Construct email recipient, subject, and comprehensive options body
       const myEmail = "penaluis746@gmail.com";
       const subject = encodeURIComponent(`Service Request: ${service} (${year} ${make || ''} ${model})`);
       const body = encodeURIComponent(
-        `Hello Luis,\n\nI would like to request a mobile mechanic service.\n\n` +
+        `Hello Luis,\n\nI would like to request a mobile mechanic service with the following specifications:\n\n` +
+        `-- Selected Service & Custom Options --\n` +
+        `Service Category: ${service}\n` +
+        `Option / Spec 1: ${sub1}\n` +
+        `Option / Spec 2: ${sub2}\n\n` +
         `-- Customer Contact & Preferences --\n` +
         `Phone: ${phone}\n` +
         `Email: ${emailInput}\n` +
@@ -1047,16 +1190,14 @@
         `Urgency / Timeframe: ${urgency}\n` +
         `Service Location Type: ${locationType}\n\n` +
         `-- Vehicle Details --\n` +
-        `Service Requested: ${service}\n` +
         `Vehicle Year: ${year}\n` +
         `Vehicle Make: ${make || 'Not specified'}\n` +
         `Vehicle Model/Trim: ${model}\n\n` +
-        `-- Issue Description --\n` +
-        `${issue || 'No additional details provided.'}\n\n` +
+        `-- Additional Notes --\n` +
+        `${issue || 'No additional notes provided.'}\n\n` +
         `Please contact me back!`
       );
 
-      // Open email client with pre-filled content sent to penaluis746@gmail.com
       window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
     }
 
