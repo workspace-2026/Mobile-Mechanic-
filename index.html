@@ -902,27 +902,29 @@
           <p class="service-description">Skip the wait at conventional shops. We come to your location with high-grade oil and filters tailored specifically to your vehicle's specifications.</p>
           
           <div class="service-options-box">
-            <div class="service-options-title">Customize This Request</div>
+            <div class="service-options-title">Customize Oil Type & Weight</div>
             <div class="service-sub-options-row">
               <div class="form-group">
-                <select id="oilType" class="service-sub-select">
-                  <option value="Full Synthetic Oil Change">Full Synthetic Oil Change</option>
-                  <option value="Synthetic Blend Oil Change">Synthetic Blend Oil Change</option>
-                  <option value="High Mileage Oil Change">High Mileage Oil Change</option>
+                <select id="oilWeight" class="service-sub-select">
+                  <option value="5W-20 (Full Synthetic / Blend)">5W-20 (Most Common)</option>
+                  <option value="5W-30 (Full Synthetic / Blend)">5W-30 (Most Common)</option>
+                  <option value="0W-20 (Full Synthetic)">0W-20 (Hybrid / Modern)</option>
+                  <option value="10W-30 (Standard / High Mileage)">10W-30</option>
+                  <option value="Other / Unsure Oil Weight">Other / Unsure (Check with Mechanic)</option>
                 </select>
               </div>
               <div class="form-group">
-                <select id="oilExtras" class="service-sub-select">
-                  <option value="Include Fluid Top-off & Inspection">Include Fluid Top-off & Inspection</option>
-                  <option value="Include Cabin Air Filter Check">Include Cabin Air Filter Check</option>
-                  <option value="Standard Oil & Filter Only">Standard Oil & Filter Only</option>
+                <select id="oilCategory" class="service-sub-select">
+                  <option value="Full Synthetic Oil Change">Full Synthetic Oil Change</option>
+                  <option value="Synthetic Blend Oil Change">Synthetic Blend Oil Change</option>
+                  <option value="High Mileage Oil Change">High Mileage Oil Change</option>
                 </select>
               </div>
             </div>
           </div>
 
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModalFromService('On-Site Oil Changes', 'oilType', 'oilExtras')">Proceed to Booking Form</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('On-Site Oil Changes', 'oilWeight', 'oilCategory')">Proceed to Booking Form</button>
           </div>
         </div>
       </div>
@@ -978,7 +980,7 @@
     <div class="modal-card">
       <button class="modal-close" onclick="closeCarModal()">&times;</button>
       <h3 class="modal-title" id="modalServiceTitle">Service Request Form</h3>
-      <p class="modal-subtitle">Review your custom options and enter your vehicle details below.</p>
+      <p class="modal-subtitle">Review your custom options, pick your preferred date, and enter your vehicle details below.</p>
 
       <form class="car-form" onsubmit="submitCarInfo(event)">
         <input type="hidden" id="selectedServiceName">
@@ -997,15 +999,11 @@
           </div>
         </div>
 
-        <!-- Preference Options -->
+        <!-- Date & Timeframe Options -->
         <div class="form-row">
           <div class="form-group">
-            <label for="contactPref">Preferred Contact Method</label>
-            <select id="contactPref" class="form-select">
-              <option value="Phone Call">Phone Call</option>
-              <option value="Text Message (SMS)">Text Message (SMS)</option>
-              <option value="Email">Email</option>
-            </select>
+            <label for="appointmentDate">Preferred Appointment Date</label>
+            <input type="date" id="appointmentDate" class="form-input" required>
           </div>
           <div class="form-group">
             <label for="serviceUrgency">Urgency / Timeframe</label>
@@ -1017,14 +1015,24 @@
           </div>
         </div>
 
-        <!-- Location Options -->
-        <div class="form-group">
-          <label for="serviceLocation">Service Location Type</label>
-          <select id="serviceLocation" class="form-select">
-            <option value="Customer's Home Driveway">Home Driveway</option>
-            <option value="Workplace Parking Lot">Workplace Parking Lot</option>
-            <option value="Roadside / Parking Structure">Roadside / Other Parking Structure</option>
-          </select>
+        <!-- Preference Options -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactPref">Preferred Contact Method</label>
+            <select id="contactPref" class="form-select">
+              <option value="Phone Call">Phone Call</option>
+              <option value="Text Message (SMS)">Text Message (SMS)</option>
+              <option value="Email">Email</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="serviceLocation">Service Location Type</label>
+            <select id="serviceLocation" class="form-select">
+              <option value="Customer's Home Driveway">Home Driveway</option>
+              <option value="Workplace Parking Lot">Workplace Parking Lot</option>
+              <option value="Roadside / Parking Structure">Roadside / Other Parking Structure</option>
+            </select>
+          </div>
         </div>
 
         <!-- Vehicle Details -->
@@ -1065,7 +1073,7 @@
           <textarea id="carIssue" class="form-textarea" placeholder="Describe specific noises, parking gate codes, or special requests..."></textarea>
         </div>
 
-        <button type="submit" class="modal-submit-btn">Send Complete Request to Luis</button>
+        <button type="submit" class="modal-submit-btn">Send Complete Request to Mech-Tech</button>
       </form>
     </div>
   </div>
@@ -1157,7 +1165,7 @@
       document.getElementById('carModal').classList.remove('open');
     }
 
-    // Handle Form Submission & Send to Email including sub-options
+    // Handle Form Submission & Send to Email including appointment date and sub-options
     function submitCarInfo(e) {
       e.preventDefault();
       const service = document.getElementById('selectedServiceName').value;
@@ -1165,6 +1173,7 @@
       const sub2 = document.getElementById('subOptionTwo').value;
       const phone = document.getElementById('clientPhone').value;
       const emailInput = document.getElementById('clientEmail').value;
+      const apptDate = document.getElementById('appointmentDate').value;
       const contactPref = document.getElementById('contactPref').value;
       const urgency = document.getElementById('serviceUrgency').value;
       const locationType = document.getElementById('serviceLocation').value;
@@ -1176,18 +1185,20 @@
       closeCarModal();
 
       const myEmail = "penaluis746@gmail.com";
-      const subject = encodeURIComponent(`Service Request: ${service} (${year} ${make || ''} ${model})`);
+      const subject = encodeURIComponent(`Service Request: ${service} (${year} ${make || ''} ${model}) - Date: ${apptDate}`);
       const body = encodeURIComponent(
-        `Hello Luis,\n\nI would like to request a mobile mechanic service with the following specifications:\n\n` +
+        `Hello Mech-Tech Team,\n\nI would like to request a mobile mechanic service with the following specifications:\n\n` +
+        `-- Appointment & Timing --\n` +
+        `Requested Appointment Date: ${apptDate}\n` +
+        `Urgency / Timeframe: ${urgency}\n\n` +
         `-- Selected Service & Custom Options --\n` +
         `Service Category: ${service}\n` +
         `Option / Spec 1: ${sub1}\n` +
         `Option / Spec 2: ${sub2}\n\n` +
-        `-- Customer Contact & Preferences --\n` +
+        `-- Customer Contact & Location --\n` +
         `Phone: ${phone}\n` +
         `Email: ${emailInput}\n` +
         `Preferred Contact Method: ${contactPref}\n` +
-        `Urgency / Timeframe: ${urgency}\n` +
         `Service Location Type: ${locationType}\n\n` +
         `-- Vehicle Details --\n` +
         `Vehicle Year: ${year}\n` +
