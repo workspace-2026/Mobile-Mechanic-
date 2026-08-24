@@ -838,7 +838,7 @@
     <div class="modal-card">
       <button class="modal-close" onclick="closeCarModal()">&times;</button>
       <h3 class="modal-title" id="modalServiceTitle">Vehicle Information</h3>
-      <p class="modal-subtitle">Tell us about your car so we can prepare your service.</p>
+      <p class="modal-subtitle">Tell us about your car to send an email request.</p>
 
       <form class="car-form" onsubmit="submitCarInfo(event)">
         <input type="hidden" id="selectedServiceName">
@@ -878,7 +878,7 @@
           <textarea id="carIssue" class="form-textarea" placeholder="Describe any symptoms, noises, or specific requests..."></textarea>
         </div>
 
-        <button type="submit" class="modal-submit-btn">Continue to Call & Dispatch</button>
+        <button type="submit" class="modal-submit-btn">Send Email Request</button>
       </form>
     </div>
   </div>
@@ -975,7 +975,7 @@
       }
     }
 
-    // Handle Form Submission
+    // Handle Form Submission & Send to Email
     function submitCarInfo(e) {
       e.preventDefault();
       const service = document.getElementById('selectedServiceName').value;
@@ -984,9 +984,23 @@
       const issue = document.getElementById('carIssue').value;
 
       closeCarModal();
-      
-      alert(`Thank you! Vehicle info saved: ${year} ${carInfo} for ${service}.\n\nConnecting you now to dispatch...`);
-      window.location.href = "tel:7084381640";
+
+      // Construct email recipient, subject, and body
+      const email = "penaluis746@gmail.com";
+      const subject = encodeURIComponent(`Service Request: ${service} (${year} ${carInfo})`);
+      const body = encodeURIComponent(
+        `Hello Luis,\n\nI would like to request a mobile mechanic service for my vehicle.\n\n` +
+        `-- Service Details --\n` +
+        `Service Requested: ${service}\n` +
+        `Vehicle Year: ${year}\n` +
+        `Vehicle Make & Model: ${carInfo}\n\n` +
+        `-- Issue Description --\n` +
+        `${issue || 'No additional details provided.'}\n\n` +
+        `Please contact me back to schedule!`
+      );
+
+      // Open email client with pre-filled content
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     }
 
     // Slider Initialization
