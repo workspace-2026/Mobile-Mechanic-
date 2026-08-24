@@ -282,7 +282,7 @@
       box-shadow: 0 0 12px rgba(255,180,0,0.4);
     }
 
-    /* HIGHLY ACTIVE SERVICES EXPANDABLE LAYOUT */
+    /* ULTRA-ATTRACTIVE BENTO SERVICES SECTION */
     .services-wrapper {
       max-width: 1200px;
       margin: auto;
@@ -292,47 +292,68 @@
     .services-header {
       text-align: center;
       max-width: 700px;
-      margin: 0 auto 40px auto;
+      margin: 0 auto 50px auto;
     }
 
     .services-header h2 {
-      font-size: clamp(1.8rem, 3vw, 2.2rem);
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
       margin-bottom: 12px;
       color: #ffb400;
-      font-weight: 800;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .services-header p {
-      color: #d0d4da;
+      color: #b8c0cc;
+      font-size: 1.05rem;
     }
 
+    /* BENTO GRID LAYOUT */
     .interactive-services-list {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .interactive-services-list {
+        grid-template-columns: 1fr;
+      }
     }
 
     .service-card {
-      background: #151c26;
-      border: 1px solid #222b36;
-      border-radius: 12px;
-      border-left: 5px solid #ffb400;
+      background: linear-gradient(145deg, #161e2b, #101620);
+      border: 1px solid #232f3f;
+      border-radius: 16px;
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #ffb400, #ffe699);
+      opacity: 0.7;
+      transition: opacity 0.3s;
     }
 
     .service-card:hover {
-      border-color: rgba(255, 180, 0, 0.6);
-      transform: translateY(-2px);
+      border-color: rgba(255, 180, 0, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 35px rgba(255, 180, 0, 0.12);
     }
 
     .service-card.active {
-      background: #192231;
+      background: linear-gradient(145deg, #1b2636, #141c27);
       border-color: #ffb400;
-      box-shadow: 0 6px 20px rgba(255, 180, 0, 0.15);
+      box-shadow: 0 16px 40px rgba(255, 180, 0, 0.2);
     }
 
     .service-toggle-btn {
@@ -340,7 +361,7 @@
       background: transparent;
       border: none;
       color: #fff;
-      padding: 22px 24px;
+      padding: 26px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -351,84 +372,107 @@
     .service-title-area {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
       pointer-events: none;
     }
 
+    .service-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .service-tag {
+      background: rgba(255, 180, 0, 0.12);
+      color: #ffb400;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 180, 0, 0.3);
+    }
+
     .service-name {
-      font-size: 1.2rem;
-      font-weight: bold;
+      font-size: 1.3rem;
+      font-weight: 800;
       color: #fff;
+      letter-spacing: 0.3px;
     }
 
     .service-hint {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: #9aa4b2;
     }
 
     .service-indicator {
-      width: 34px;
-      height: 34px;
-      background: #1c2633;
+      width: 40px;
+      height: 40px;
+      background: #1c2635;
+      border: 1px solid #2a384e;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffb400;
-      font-size: 0.85rem;
-      transition: transform 0.3s ease, background 0.3s ease;
+      font-size: 0.9rem;
+      transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease;
       pointer-events: none;
+      flex-shrink: 0;
     }
 
     .service-card.active .service-indicator {
       background: #ffb400;
       color: #111820;
       transform: rotate(180deg);
+      border-color: #ffb400;
     }
 
     .service-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease-out, padding 0.4s ease;
-      padding: 0 24px;
-      border-top: 1px solid transparent;
+      transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), padding 0.45s ease;
+      padding: 0 28px;
     }
 
     .service-card.active .service-content {
-      max-height: 450px;
-      padding: 0 24px 24px 24px;
-      border-top-color: rgba(255, 255, 255, 0.08);
+      max-height: 520px;
+      padding: 0 28px 28px 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .service-description {
       color: #c5cbd3;
       font-size: 0.98rem;
-      margin-top: 16px;
-      line-height: 1.5;
+      margin-top: 18px;
+      line-height: 1.6;
     }
 
-    /* MORE OPTIONS GRID INSIDE EXPANDED CARD */
     .service-options-box {
-      margin-top: 16px;
-      background: #111720;
-      border: 1px solid #232d3d;
-      border-radius: 8px;
-      padding: 16px;
+      margin-top: 18px;
+      background: #0d121b;
+      border: 1px solid #202b3c;
+      border-radius: 10px;
+      padding: 18px;
     }
 
     .service-options-title {
-      font-size: 0.85rem;
-      font-weight: 700;
+      font-size: 0.8rem;
+      font-weight: 800;
       color: #ffb400;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .service-sub-options-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
     }
 
     @media (max-width: 600px) {
@@ -438,48 +482,54 @@
     }
 
     .service-sub-select {
-      background: #1c242e;
-      border: 1px solid #2b3544;
+      background: #151d28;
+      border: 1px solid #29364a;
       border-radius: 6px;
-      padding: 9px;
+      padding: 10px;
       color: #fff;
       font-size: 0.9rem;
       outline: none;
       width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    .service-sub-select:focus {
+      border-color: #ffb400;
     }
 
     .service-sub-select option {
-      background: #1c242e;
+      background: #151d28;
       color: #fff;
     }
 
     .service-action-row {
-      margin-top: 18px;
+      margin-top: 20px;
       display: flex;
       justify-content: flex-end;
-      gap: 12px;
     }
 
     .service-book-btn {
       background: #ffb400;
       color: #111820;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 0.92rem;
-      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 800;
       border: none;
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(255,180,0,0.3);
     }
 
     .service-book-btn:hover {
       background: #ffd35c;
-      box-shadow: 0 0 10px rgba(255,180,0,0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,180,0,0.5);
     }
 
     .services-cta-container {
       text-align: center;
-      margin-top: 35px;
+      margin-top: 50px;
     }
 
     /* MODAL POPUP */
@@ -802,19 +852,22 @@
     <div class="dots" id="dots"></div>
   </section>
 
-  <!-- INTERACTIVE EXPANDABLE SERVICES WITH DEEP OPTIONS -->
+  <!-- ULTRA-ATTRACTIVE BENTO SERVICES SECTION -->
   <section id="services" class="services-wrapper">
     <div class="services-header">
-      <h2 class="split-title">Interactive Services Menu</h2>
-      <p>Click any service box below to open detailed info, pick custom component options, and book instantly.</p>
+      <h2>Interactive Services Menu</h2>
+      <p>Tap any service card to customize your project requirements, select your schedule, and book instantly.</p>
     </div>
 
     <div class="interactive-services-list">
       
-      <!-- Service 1 -->
+      <!-- Service 1: Brake Repair -->
       <div class="service-card" id="card-brake">
         <button class="service-toggle-btn" onclick="toggleService('card-brake')">
           <div class="service-title-area">
+            <div class="service-badge-row">
+              <span class="service-tag">Most Popular</span>
+            </div>
             <span class="service-name">🔧 Brake Repair & Service</span>
             <span class="service-hint">Pads, Rotors, Calipers & System Bleeding</span>
           </div>
@@ -824,7 +877,7 @@
           <p class="service-description">Complete mobile brake service performed right at your driveway or workplace. Includes thorough pad and rotor inspection, replacement, and system bleeding.</p>
           
           <div class="service-options-box">
-            <div class="service-options-title">Customize This Request</div>
+            <div class="service-options-title">⚙️ Customize This Request</div>
             <div class="service-sub-options-row">
               <div class="form-group">
                 <select id="brakeType" class="service-sub-select">
@@ -845,15 +898,18 @@
           </div>
 
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModalFromService('Brake Repair & Service', 'brakeType', 'padMaterial')">Proceed to Booking Form</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('Brake Repair & Service', 'brakeType', 'padMaterial')">Proceed to Booking Form →</button>
           </div>
         </div>
       </div>
 
-      <!-- Service 2 -->
+      <!-- Service 2: Diagnostics & Electrical -->
       <div class="service-card" id="card-diag">
         <button class="service-toggle-btn" onclick="toggleService('card-diag')">
           <div class="service-title-area">
+            <div class="service-badge-row">
+              <span class="service-tag">Advanced Tech</span>
+            </div>
             <span class="service-name">💻 Diagnostics & Electrical</span>
             <span class="service-hint">Check Engine Light, Battery, Alternator & Starters</span>
           </div>
@@ -863,7 +919,7 @@
           <p class="service-description">Advanced computer scanning tools to identify check engine lights, battery faults, starter problems, alternator issues, and electrical gremlins on-site.</p>
           
           <div class="service-options-box">
-            <div class="service-options-title">Customize This Request</div>
+            <div class="service-options-title">⚙️ Customize This Request</div>
             <div class="service-sub-options-row">
               <div class="form-group">
                 <select id="diagType" class="service-sub-select">
@@ -884,15 +940,18 @@
           </div>
 
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModalFromService('Diagnostics & Electrical', 'diagType', 'warningStatus')">Proceed to Booking Form</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('Diagnostics & Electrical', 'diagType', 'warningStatus')">Proceed to Booking Form →</button>
           </div>
         </div>
       </div>
 
-      <!-- Service 3 -->
+      <!-- Service 3: On-Site Oil Changes -->
       <div class="service-card" id="card-oil">
         <button class="service-toggle-btn" onclick="toggleService('card-oil')">
           <div class="service-title-area">
+            <div class="service-badge-row">
+              <span class="service-tag">Quick & Convenient</span>
+            </div>
             <span class="service-name">🛢️ On-Site Oil Changes</span>
             <span class="service-hint">Quick, Clean Oil & Filter Replacement</span>
           </div>
@@ -902,7 +961,7 @@
           <p class="service-description">Skip the wait at conventional shops. We come to your location with high-grade oil and filters tailored specifically to your vehicle's specifications.</p>
           
           <div class="service-options-box">
-            <div class="service-options-title">Customize Oil Type & Weight</div>
+            <div class="service-options-title">⚙️ Customize Oil Type & Weight</div>
             <div class="service-sub-options-row">
               <div class="form-group">
                 <select id="oilWeight" class="service-sub-select">
@@ -924,15 +983,18 @@
           </div>
 
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModalFromService('On-Site Oil Changes', 'oilWeight', 'oilCategory')">Proceed to Booking Form</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('On-Site Oil Changes', 'oilWeight', 'oilCategory')">Proceed to Booking Form →</button>
           </div>
         </div>
       </div>
 
-      <!-- Service 4 -->
+      <!-- Service 4: Suspension & Steering -->
       <div class="service-card" id="card-suspension">
         <button class="service-toggle-btn" onclick="toggleService('card-suspension')">
           <div class="service-title-area">
+            <div class="service-badge-row">
+              <span class="service-tag">Ride Safety</span>
+            </div>
             <span class="service-name">🔩 Suspension & Steering</span>
             <span class="service-hint">Shocks, Struts, Ball Joints & Tie Rods</span>
           </div>
@@ -942,7 +1004,7 @@
           <p class="service-description">Restore smooth handling and a safe, stable ride. We replace worn-out shocks, struts, control arms, and steering components right where your car is parked.</p>
           
           <div class="service-options-box">
-            <div class="service-options-title">Customize This Request</div>
+            <div class="service-options-title">⚙️ Customize This Request</div>
             <div class="service-sub-options-row">
               <div class="form-group">
                 <select id="suspensionPart" class="service-sub-select">
@@ -963,7 +1025,7 @@
           </div>
 
           <div class="service-action-row">
-            <button class="service-book-btn" onclick="openCarModalFromService('Suspension & Steering', 'suspensionPart', 'suspensionSymptom')">Proceed to Booking Form</button>
+            <button class="service-book-btn" onclick="openCarModalFromService('Suspension & Steering', 'suspensionPart', 'suspensionSymptom')">Proceed to Booking Form →</button>
           </div>
         </div>
       </div>
