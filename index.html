@@ -436,7 +436,7 @@
       margin-top: 35px;
     }
 
-    /* MODAL POPUP FOR CAR INFO */
+    /* MODAL POPUP FOR CAR & CONTACT INFO */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -461,7 +461,9 @@
       border: 2px solid #ffb400;
       border-radius: 14px;
       width: 90%;
-      max-width: 480px;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
       padding: 30px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       position: relative;
@@ -505,6 +507,12 @@
       gap: 14px;
     }
 
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     .form-group {
       display: flex;
       flex-direction: column;
@@ -541,7 +549,7 @@
 
     .form-textarea {
       resize: vertical;
-      min-height: 80px;
+      min-height: 70px;
     }
 
     .modal-submit-btn {
@@ -753,7 +761,7 @@
   <section id="services" class="services-wrapper">
     <div class="services-header">
       <h2 class="split-title">Our Services</h2>
-      <p>Click any service to view details and provide your vehicle info.</p>
+      <p>Click any service to view details and provide your vehicle & contact info.</p>
     </div>
 
     <div class="interactive-services-list">
@@ -833,44 +841,57 @@
     </div>
   </section>
 
-  <!-- CAR INFO MODAL POPUP -->
+  <!-- IMPROVED CAR & CONTACT INFO MODAL POPUP -->
   <div class="modal-overlay" id="carModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeCarModal()">&times;</button>
-      <h3 class="modal-title" id="modalServiceTitle">Vehicle Information</h3>
-      <p class="modal-subtitle">Tell us about your car to send an email request.</p>
+      <h3 class="modal-title" id="modalServiceTitle">Vehicle & Contact Info</h3>
+      <p class="modal-subtitle">Provide your car and contact details to send your request.</p>
 
       <form class="car-form" onsubmit="submitCarInfo(event)">
         <input type="hidden" id="selectedServiceName">
         
-        <div class="form-group">
-          <label for="carYear">Year</label>
-          <input type="text" id="carYear" class="form-input" placeholder="e.g., 2018" required>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientPhone">Phone Number</label>
+            <input type="tel" id="clientPhone" class="form-input" placeholder="(708) 555-1234" required>
+          </div>
+          <div class="form-group">
+            <label for="clientEmail">Email Address</label>
+            <input type="email" id="clientEmail" class="form-input" placeholder="name@gmail.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="carYear">Vehicle Year</label>
+            <input type="text" id="carYear" class="form-input" placeholder="e.g., 2018" required>
+          </div>
+          <div class="form-group">
+            <label for="carMakeSelect">Vehicle Make</label>
+            <select id="carMakeSelect" class="form-select" onchange="handleMakeSelection()">
+              <option value="">-- Select Make --</option>
+              <option value="Ford">Ford</option>
+              <option value="Chevrolet">Chevrolet</option>
+              <option value="Toyota">Toyota</option>
+              <option value="Honda">Honda</option>
+              <option value="Nissan">Nissan</option>
+              <option value="Jeep">Jeep</option>
+              <option value="RAM">RAM</option>
+              <option value="BMW">BMW</option>
+              <option value="Hyundai">Hyundai</option>
+              <option value="Kia">Kia</option>
+              <option value="GMC">GMC</option>
+              <option value="Dodge">Dodge</option>
+              <option value="Subaru">Subaru</option>
+              <option value="Other">Other Make</option>
+            </select>
+          </div>
         </div>
 
         <div class="form-group">
-          <label for="carModelSelect">Common Vehicle Models</label>
-          <select id="carModelSelect" class="form-select" onchange="handleModelSelection()">
-            <option value="">-- Select Common Model (Optional) --</option>
-            <option value="Ford F-150">Ford F-150</option>
-            <option value="Toyota Camry">Toyota Camry</option>
-            <option value="Toyota Corolla">Toyota Corolla</option>
-            <option value="Honda Civic">Honda Civic</option>
-            <option value="Honda Accord">Honda Accord</option>
-            <option value="Chevrolet Silverado">Chevrolet Silverado</option>
-            <option value="Chevrolet Equinox">Chevrolet Equinox</option>
-            <option value="Nissan Altima">Nissan Altima</option>
-            <option value="Ram 1500">Ram 1500</option>
-            <option value="Jeep Grand Cherokee">Jeep Grand Cherokee</option>
-            <option value="Ford Explorer">Ford Explorer</option>
-            <option value="Toyota RAV4">Toyota RAV4</option>
-            <option value="Honda CR-V">Honda CR-V</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="carMakeModel">Make & Model (Type manually if not listed)</label>
-          <input type="text" id="carMakeModel" class="form-input" placeholder="e.g., Ford Focus or BMW 328i" required>
+          <label for="carModelInput">Specific Model & Trim</label>
+          <input type="text" id="carModelInput" class="form-input" placeholder="e.g., F-150 Lariat, Camry LE, Civic EX" required>
         </div>
 
         <div class="form-group">
@@ -878,7 +899,7 @@
           <textarea id="carIssue" class="form-textarea" placeholder="Describe any symptoms, noises, or specific requests..."></textarea>
         </div>
 
-        <button type="submit" class="modal-submit-btn">Send Email Request</button>
+        <button type="submit" class="modal-submit-btn">Send Request to Luis</button>
       </form>
     </div>
   </div>
@@ -966,12 +987,14 @@
       document.getElementById('carModal').classList.remove('open');
     }
 
-    // Auto-fill Make & Model when choosing from the dropdown
-    function handleModelSelection() {
-      const select = document.getElementById('carModelSelect');
-      const input = document.getElementById('carMakeModel');
-      if (select.value) {
-        input.value = select.value;
+    // Handle Make Selection helper
+    function handleMakeSelection() {
+      const makeSelect = document.getElementById('carMakeSelect');
+      const modelInput = document.getElementById('carModelInput');
+      if (makeSelect.value && makeSelect.value !== "Other") {
+        if (!modelInput.value.includes(makeSelect.value)) {
+          modelInput.value = makeSelect.value + " " + modelInput.value;
+        }
       }
     }
 
@@ -979,28 +1002,35 @@
     function submitCarInfo(e) {
       e.preventDefault();
       const service = document.getElementById('selectedServiceName').value;
+      const phone = document.getElementById('clientPhone').value;
+      const emailInput = document.getElementById('clientEmail').value;
       const year = document.getElementById('carYear').value;
-      const carInfo = document.getElementById('carMakeModel').value;
+      const make = document.getElementById('carMakeSelect').value;
+      const model = document.getElementById('carModelInput').value;
       const issue = document.getElementById('carIssue').value;
 
       closeCarModal();
 
       // Construct email recipient, subject, and body
-      const email = "penaluis746@gmail.com";
-      const subject = encodeURIComponent(`Service Request: ${service} (${year} ${carInfo})`);
+      const myEmail = "penaluis746@gmail.com";
+      const subject = encodeURIComponent(`Service Request: ${service} (${year} ${make} ${model})`);
       const body = encodeURIComponent(
         `Hello Luis,\n\nI would like to request a mobile mechanic service for my vehicle.\n\n` +
-        `-- Service Details --\n` +
+        `-- Customer Contact Info --\n` +
+        `Phone: ${phone}\n` +
+        `Email: ${emailInput}\n\n` +
+        `-- Vehicle Details --\n` +
         `Service Requested: ${service}\n` +
         `Vehicle Year: ${year}\n` +
-        `Vehicle Make & Model: ${carInfo}\n\n` +
+        `Vehicle Make: ${make}\n` +
+        `Vehicle Model/Trim: ${model}\n\n` +
         `-- Issue Description --\n` +
         `${issue || 'No additional details provided.'}\n\n` +
         `Please contact me back to schedule!`
       );
 
-      // Open email client with pre-filled content
-      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      // Open email client with pre-filled content sent to penaluis746@gmail.com
+      window.location.href = `mailto:${myEmail}?subject=${subject}&body=${body}`;
     }
 
     // Slider Initialization
