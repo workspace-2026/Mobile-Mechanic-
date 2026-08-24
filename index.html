@@ -18,7 +18,7 @@
 
     img { width: 100%; height: auto; border-radius: 8px; }
 
-    /* CATCHY NAVIGATION */
+    /* NAVIGATION */
     .nav-header {
       background: #0c1116;
       border-bottom: 1px solid #1c242e;
@@ -247,10 +247,14 @@
       font-weight: 800;
     }
 
-    /* MAP LINK BUTTON */
+    /* MAP LINK BUTTON & CENTER CONTAINER */
+    .map-btn-container {
+      text-align: center;
+      margin-top: 24px;
+    }
+
     .map-link-btn {
       display: inline-block;
-      margin-top: 20px;
       background: #1c242e;
       color: #ffb400;
       border: 1px solid #ffb400;
@@ -267,7 +271,7 @@
       box-shadow: 0 0 12px rgba(255,180,0,0.4);
     }
 
-    /* INTERACTIVE SERVICES SECTION */
+    /* INTERACTIVE ACCORDION SERVICES SECTION */
     .services-wrapper {
       max-width: 1200px;
       margin: auto;
@@ -291,132 +295,74 @@
       color: #d0d4da;
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
-
-    .service-card {
+    .simple-services-list {
       background: #151c26;
-      padding: 24px;
-      border-radius: 10px;
       border: 1px solid #222b36;
-      transition: 0.3s;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      border-color: #ffb400;
-      box-shadow: 0 0 12px rgba(255,180,0,0.2);
-    }
-
-    .service-card.selected {
-      border-color: #ffb400;
-      background: #1c2633;
-      box-shadow: 0 0 16px rgba(255,180,0,0.3);
-    }
-
-    .service-card h3 {
-      color: #ffb400;
-      margin-bottom: 12px;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .service-card p {
-      color: #b0b8c4;
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-    }
-
-    .service-action-hint {
-      font-size: 0.85rem;
-      color: #ffb400;
-      font-weight: bold;
-      opacity: 0.8;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    /* INTERACTIVE QUOTE/ESTIMATE BOX */
-    .interactive-estimator {
-      background: linear-gradient(135deg, #1c242e 0%, #121821 100%);
-      border: 2px dashed #ffb400;
       border-radius: 12px;
-      padding: 30px;
-      margin-top: 40px;
+      padding: 20px;
+      max-width: 700px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      text-align: center;
+      gap: 12px;
     }
 
-    .estimator-content h3 {
+    .service-accordion-item {
+      background: #1c2633;
+      border-radius: 8px;
+      border-left: 4px solid #ffb400;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .service-header-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
       color: #fff;
-      font-size: 1.4rem;
-      margin-bottom: 8px;
-    }
-
-    .estimator-content p {
-      color: #a7b0bd;
-      font-size: 0.95rem;
-    }
-
-    #selected-services-list {
+      padding: 16px 18px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin: 10px 0;
-    }
-
-    .selected-tag {
-      background: rgba(255, 180, 0, 0.15);
-      color: #ffb400;
-      border: 1px solid #ffb400;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      display: inline-flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
-    }
-
-    .selected-tag .remove-tag {
-      cursor: pointer;
-      font-size: 1rem;
-      color: #fff;
-    }
-
-    .estimator-cta {
-      background: #ffb400;
-      color: #111820;
-      padding: 12px 28px;
-      border-radius: 6px;
+      font-size: 1.05rem;
       font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 0 12px rgba(255,180,0,0.4);
-      transition: 0.3s;
-      display: inline-block;
+      cursor: pointer;
+      text-align: left;
     }
 
-    .estimator-cta:hover {
-      background: #ffd35c;
-      box-shadow: 0 0 16px rgba(255,180,0,0.7);
+    .service-header-btn span {
+      pointer-events: none;
     }
 
-    .empty-selection-text {
-      color: #8892a0;
-      font-style: italic;
+    .service-arrow {
+      color: #ffb400;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+    }
+
+    .service-accordion-item.active .service-arrow {
+      transform: rotate(180deg);
+    }
+
+    .service-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, padding 0.3s ease;
+      padding: 0 18px;
+      color: #b0b8c4;
+      font-size: 0.95rem;
+      border-top: 1px solid transparent;
+    }
+
+    .service-accordion-item.active .service-body {
+      max-height: 150px;
+      padding: 12px 18px 16px 18px;
+      border-top-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .services-cta-container {
+      text-align: center;
+      margin-top: 30px;
     }
 
     /* CONTACT SECTION */
@@ -606,49 +552,59 @@
     <div class="dots" id="dots"></div>
   </section>
 
-  <!-- INTERACTIVE SERVICES -->
+  <!-- INTERACTIVE SERVICES ACCORDION -->
   <section id="services" class="services-wrapper">
     <div class="services-header">
       <h2 class="split-title">Our Services</h2>
-      <p>Expert engine diagnostics and professional repair services. Click on the services you need below to build your custom service list and get in touch instantly!</p>
+      <p>Click any service below to view details and professional on-site coverage.</p>
     </div>
 
-    <div class="services-grid" id="servicesGrid">
-      <div class="service-card" data-service="Brake Repair">
-        <h3>Brake Repair <span>🔧</span></h3>
-        <p>Brake pad replacement, rotor service, and full brake inspections.</p>
-        <span class="service-action-hint">Click to Select +</span>
-      </div>
-
-      <div class="service-card" data-service="Diagnostics">
-        <h3>Diagnostics <span>💻</span></h3>
-        <p>Check engine light? We run full diagnostics and explain the issue clearly.</p>
-        <span class="service-action-hint">Click to Select +</span>
-      </div>
-
-      <div class="service-card" data-service="Oil Changes">
-        <h3>Oil Changes <span>🛢️</span></h3>
-        <p>Quick and clean oil changes at your home or workplace.</p>
-        <span class="service-action-hint">Click to Select +</span>
-      </div>
-
-      <div class="service-card" data-service="Suspension & Steering">
-        <h3>Suspension & Steering <span>🔩</span></h3>
-        <p>Ball joints, tie rods, control arms, and more — done right.</p>
-        <span class="service-action-hint">Click to Select +</span>
-      </div>
-    </div>
-
-    <!-- Interactive Estimate Builder -->
-    <div class="interactive-estimator">
-      <div class="estimator-content">
-        <h3>Your Service Checklist</h3>
-        <p>Select services above to bundle them into your request:</p>
-        <div id="selected-services-list">
-          <span class="empty-selection-text">No services selected yet. Click any card above!</span>
+    <div class="simple-services-list">
+      
+      <div class="service-accordion-item">
+        <button class="service-header-btn">
+          <span>🔧 Brake Repair</span>
+          <span class="service-arrow">▼</span>
+        </button>
+        <div class="service-body">
+          Complete mobile brake service including pad replacement, rotor resurfacing/replacement, and fluid checks performed right at your driveway.
         </div>
       </div>
-      <a href="tel:7084381640" id="callWithSelected" class="estimator-cta">Call Now With Selected Services</a>
+
+      <div class="service-accordion-item">
+        <button class="service-header-btn">
+          <span>💻 Diagnostics</span>
+          <span class="service-arrow">▼</span>
+        </button>
+        <div class="service-body">
+          Advanced computer scanning to troubleshoot check engine lights, sensor issues, starting problems, and electrical faults accurately.
+        </div>
+      </div>
+
+      <div class="service-accordion-item">
+        <button class="service-header-btn">
+          <span>🛢️ Oil Changes</span>
+          <span class="service-arrow">▼</span>
+        </button>
+        <div class="service-body">
+          Fast, convenient, and clean mobile oil and filter changes using high-quality oil formulated for your specific vehicle.
+        </div>
+      </div>
+
+      <div class="service-accordion-item">
+        <button class="service-header-btn">
+          <span>🔩 Suspension & Steering</span>
+          <span class="service-arrow">▼</span>
+        </button>
+        <div class="service-body">
+          On-site replacement of shocks, struts, ball joints, control arms, and tie rod ends to restore smooth handling and a safe ride.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="services-cta-container">
+      <a href="tel:7084381640" class="btn-primary">Call For Service & Estimates</a>
     </div>
   </section>
 
@@ -667,8 +623,8 @@
       </div>
       <div class="dots" id="aboutDots"></div>
 
-      <!-- GOOGLE MAPS LINK BUTTON -->
-      <div>
+      <!-- CENTERED GOOGLE MAPS LINK BUTTON -->
+      <div class="map-btn-container">
         <a href="https://maps.app.goo.gl/EuosWv3PfNHCao9d8?g_st=ac" target="_blank" class="map-link-btn">📍 Open Location on Google Maps</a>
       </div>
     </div>
@@ -709,54 +665,22 @@
 
   <!-- SCRIPTS -->
   <script>
-    // Interactive Services Selection Logic
-    const selectedServices = new Set();
-    const serviceCards = document.querySelectorAll('.service-card');
-    const selectedListContainer = document.getElementById('selected-services-list');
-
-    serviceCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const serviceName = card.getAttribute('data-service');
-        if (selectedServices.has(serviceName)) {
-          selectedServices.delete(serviceName);
-          card.classList.remove('selected');
-          card.querySelector('.service-action-hint').textContent = 'Click to Select +';
-        } else {
-          selectedServices.add(serviceName);
-          card.classList.add('selected');
-          card.querySelector('.service-action-hint').textContent = 'Selected ✓';
-        }
-        updateSelectedDisplay();
-      });
-    });
-
-    function updateSelectedDisplay() {
-      selectedListContainer.innerHTML = '';
-      if (selectedServices.size === 0) {
-        selectedListContainer.innerHTML = '<span class="empty-selection-text">No services selected yet. Click any card above!</span>';
-        return;
-      }
-
-      selectedServices.forEach(service => {
-        const tag = document.createElement('div');
-        tag.className = 'selected-tag';
-        tag.innerHTML = `${service} <span class="remove-tag" title="Remove">&times;</span>`;
+    // Accordion Dropdown Functionality for Services
+    document.querySelectorAll('.service-header-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.parentElement;
         
-        tag.querySelector('.remove-tag').addEventListener('click', (e) => {
-          e.stopPropagation();
-          selectedServices.delete(service);
-          serviceCards.forEach(card => {
-            if (card.getAttribute('data-service') === service) {
-              card.classList.remove('selected');
-              card.querySelector('.service-action-hint').textContent = 'Click to Select +';
-            }
-          });
-          updateSelectedDisplay();
+        // Optional: Close other open accordion items for a cleaner single-open view
+        document.querySelectorAll('.service-accordion-item').forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+          }
         });
 
-        selectedListContainer.appendChild(tag);
+        // Toggle current clicked item
+        item.classList.toggle('active');
       });
-    }
+    });
 
     // Slider Initialization
     function initSlider(sliderId, dotsId) {
@@ -792,7 +716,6 @@
         goToSlide(index);
       }, 4000);
 
-      // Pause auto-slide on hover/interaction
       slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
 
       let startX = 0;
