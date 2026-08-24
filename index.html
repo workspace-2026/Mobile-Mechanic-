@@ -436,7 +436,7 @@
       margin-top: 35px;
     }
 
-    /* MODAL POPUP FOR CAR & CONTACT INFO */
+    /* MODAL POPUP FOR CAR & CLIENT OPTIONS */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -460,8 +460,8 @@
       background: #151c26;
       border: 2px solid #ffb400;
       border-radius: 14px;
-      width: 90%;
-      max-width: 500px;
+      width: 92%;
+      max-width: 560px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 30px;
@@ -492,11 +492,11 @@
       font-size: 1.4rem;
       color: #ffb400;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .modal-subtitle {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #b0b8c4;
       margin-bottom: 20px;
     }
@@ -520,7 +520,7 @@
     }
 
     .form-group label {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #d0d4da;
       text-transform: uppercase;
@@ -531,9 +531,9 @@
       background: #1c242e;
       border: 1px solid #2b3544;
       border-radius: 6px;
-      padding: 12px;
+      padding: 11px;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.95rem;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -549,7 +549,7 @@
 
     .form-textarea {
       resize: vertical;
-      min-height: 70px;
+      min-height: 65px;
     }
 
     .modal-submit-btn {
@@ -761,7 +761,7 @@
   <section id="services" class="services-wrapper">
     <div class="services-header">
       <h2 class="split-title">Our Services</h2>
-      <p>Click any service to view details and provide your vehicle & contact info.</p>
+      <p>Click any service to view details and provide your vehicle & contact options.</p>
     </div>
 
     <div class="interactive-services-list">
@@ -841,16 +841,17 @@
     </div>
   </section>
 
-  <!-- IMPROVED CAR & CONTACT INFO MODAL POPUP -->
+  <!-- ADVANCED CLIENT & CAR MODAL POPUP -->
   <div class="modal-overlay" id="carModal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeCarModal()">&times;</button>
-      <h3 class="modal-title" id="modalServiceTitle">Vehicle & Contact Info</h3>
-      <p class="modal-subtitle">Provide your car and contact details to send your request.</p>
+      <h3 class="modal-title" id="modalServiceTitle">Service Request Form</h3>
+      <p class="modal-subtitle">Customize your vehicle and appointment preferences below.</p>
 
       <form class="car-form" onsubmit="submitCarInfo(event)">
         <input type="hidden" id="selectedServiceName">
         
+        <!-- Contact Options -->
         <div class="form-row">
           <div class="form-group">
             <label for="clientPhone">Phone Number</label>
@@ -862,6 +863,37 @@
           </div>
         </div>
 
+        <!-- Preference Options -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactPref">Preferred Contact Method</label>
+            <select id="contactPref" class="form-select">
+              <option value="Phone Call">Phone Call</option>
+              <option value="Text Message (SMS)">Text Message (SMS)</option>
+              <option value="Email">Email</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="serviceUrgency">Urgency / Timeframe</label>
+            <select id="serviceUrgency" class="form-select">
+              <option value="Emergency / ASAP">Emergency / ASAP</option>
+              <option value="Within 24-48 Hours">Within 24-48 Hours</option>
+              <option value="Flexible / Next Few Days">Flexible / Next Few Days</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Location Options -->
+        <div class="form-group">
+          <label for="serviceLocation">Service Location Type</label>
+          <select id="serviceLocation" class="form-select">
+            <option value="Customer's Home Driveway">Home Driveway</option>
+            <option value="Workplace Parking Lot">Workplace Parking Lot</option>
+            <option value="Roadside / Parking Structure">Roadside / Other Parking Structure</option>
+          </select>
+        </div>
+
+        <!-- Vehicle Details -->
         <div class="form-row">
           <div class="form-group">
             <label for="carYear">Vehicle Year</label>
@@ -869,7 +901,7 @@
           </div>
           <div class="form-group">
             <label for="carMakeSelect">Vehicle Make</label>
-            <select id="carMakeSelect" class="form-select" onchange="handleMakeSelection()">
+            <select id="carMakeSelect" class="form-select">
               <option value="">-- Select Make --</option>
               <option value="Ford">Ford</option>
               <option value="Chevrolet">Chevrolet</option>
@@ -896,10 +928,10 @@
 
         <div class="form-group">
           <label for="carIssue">Specific Issue / Details (Optional)</label>
-          <textarea id="carIssue" class="form-textarea" placeholder="Describe any symptoms, noises, or specific requests..."></textarea>
+          <textarea id="carIssue" class="form-textarea" placeholder="Describe symptoms, noises, or specific requests..."></textarea>
         </div>
 
-        <button type="submit" class="modal-submit-btn">Send Request to Luis</button>
+        <button type="submit" class="modal-submit-btn">Send Complete Request to Luis</button>
       </form>
     </div>
   </div>
@@ -987,23 +1019,15 @@
       document.getElementById('carModal').classList.remove('open');
     }
 
-    // Handle Make Selection helper
-    function handleMakeSelection() {
-      const makeSelect = document.getElementById('carMakeSelect');
-      const modelInput = document.getElementById('carModelInput');
-      if (makeSelect.value && makeSelect.value !== "Other") {
-        if (!modelInput.value.includes(makeSelect.value)) {
-          modelInput.value = makeSelect.value + " " + modelInput.value;
-        }
-      }
-    }
-
-    // Handle Form Submission & Send to Email
+    // Handle Form Submission & Send to Email with all client options included
     function submitCarInfo(e) {
       e.preventDefault();
       const service = document.getElementById('selectedServiceName').value;
       const phone = document.getElementById('clientPhone').value;
       const emailInput = document.getElementById('clientEmail').value;
+      const contactPref = document.getElementById('contactPref').value;
+      const urgency = document.getElementById('serviceUrgency').value;
+      const locationType = document.getElementById('serviceLocation').value;
       const year = document.getElementById('carYear').value;
       const make = document.getElementById('carMakeSelect').value;
       const model = document.getElementById('carModelInput').value;
@@ -1011,22 +1035,25 @@
 
       closeCarModal();
 
-      // Construct email recipient, subject, and body
+      // Construct email recipient, subject, and comprehensive options body
       const myEmail = "penaluis746@gmail.com";
-      const subject = encodeURIComponent(`Service Request: ${service} (${year} ${make} ${model})`);
+      const subject = encodeURIComponent(`Service Request: ${service} (${year} ${make || ''} ${model})`);
       const body = encodeURIComponent(
-        `Hello Luis,\n\nI would like to request a mobile mechanic service for my vehicle.\n\n` +
-        `-- Customer Contact Info --\n` +
+        `Hello Luis,\n\nI would like to request a mobile mechanic service.\n\n` +
+        `-- Customer Contact & Preferences --\n` +
         `Phone: ${phone}\n` +
-        `Email: ${emailInput}\n\n` +
+        `Email: ${emailInput}\n` +
+        `Preferred Contact Method: ${contactPref}\n` +
+        `Urgency / Timeframe: ${urgency}\n` +
+        `Service Location Type: ${locationType}\n\n` +
         `-- Vehicle Details --\n` +
         `Service Requested: ${service}\n` +
         `Vehicle Year: ${year}\n` +
-        `Vehicle Make: ${make}\n` +
+        `Vehicle Make: ${make || 'Not specified'}\n` +
         `Vehicle Model/Trim: ${model}\n\n` +
         `-- Issue Description --\n` +
         `${issue || 'No additional details provided.'}\n\n` +
-        `Please contact me back to schedule!`
+        `Please contact me back!`
       );
 
       // Open email client with pre-filled content sent to penaluis746@gmail.com
