@@ -171,6 +171,8 @@
       border-radius: 4px;
       font-weight: bold;
       text-decoration: none;
+      transition: 0.3s;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -178,9 +180,19 @@
       color: #111820;
     }
 
+    .btn-primary:hover {
+      background: #ffd35c;
+      box-shadow: 0 0 12px rgba(255,180,0,0.5);
+    }
+
     .btn-secondary {
       border: 1px solid #ffb400;
       color: #ffb400;
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 180, 0, 0.1);
     }
 
     /* SWIPING SLIDER */
@@ -271,7 +283,7 @@
       box-shadow: 0 0 12px rgba(255,180,0,0.4);
     }
 
-    /* INTERACTIVE ACCORDION SERVICES SECTION */
+    /* HIGHLY INTERACTIVE SERVICES ACCORDION */
     .services-wrapper {
       max-width: 1200px;
       margin: auto;
@@ -295,74 +307,259 @@
       color: #d0d4da;
     }
 
-    .simple-services-list {
-      background: #151c26;
-      border: 1px solid #222b36;
-      border-radius: 12px;
-      padding: 20px;
-      max-width: 700px;
+    .interactive-services-list {
+      max-width: 750px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
 
-    .service-accordion-item {
-      background: #1c2633;
-      border-radius: 8px;
-      border-left: 4px solid #ffb400;
+    .service-card {
+      background: #151c26;
+      border: 1px solid #222b36;
+      border-radius: 12px;
+      border-left: 5px solid #ffb400;
       overflow: hidden;
-      transition: background 0.3s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .service-header-btn {
+    .service-card:hover {
+      border-color: rgba(255, 180, 0, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .service-card.active {
+      background: #192231;
+      border-color: #ffb400;
+      box-shadow: 0 6px 20px rgba(255, 180, 0, 0.15);
+    }
+
+    .service-toggle-btn {
       width: 100%;
       background: transparent;
       border: none;
       color: #fff;
-      padding: 16px 18px;
+      padding: 20px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.05rem;
-      font-weight: bold;
       cursor: pointer;
       text-align: left;
     }
 
-    .service-header-btn span {
+    .service-title-area {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
       pointer-events: none;
     }
 
-    .service-arrow {
-      color: #ffb400;
-      font-size: 0.9rem;
-      transition: transform 0.3s ease;
+    .service-name {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #fff;
     }
 
-    .service-accordion-item.active .service-arrow {
+    .service-hint {
+      font-size: 0.85rem;
+      color: #9aa4b2;
+    }
+
+    .service-indicator {
+      width: 32px;
+      height: 32px;
+      background: #1c2633;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffb400;
+      font-size: 0.85rem;
+      transition: transform 0.3s ease, background 0.3s ease;
+      pointer-events: none;
+    }
+
+    .service-card.active .service-indicator {
+      background: #ffb400;
+      color: #111820;
       transform: rotate(180deg);
     }
 
-    .service-body {
+    .service-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease-out, padding 0.3s ease;
-      padding: 0 18px;
-      color: #b0b8c4;
-      font-size: 0.95rem;
+      transition: max-height 0.35s ease-out, padding 0.35s ease;
+      padding: 0 24px;
       border-top: 1px solid transparent;
     }
 
-    .service-accordion-item.active .service-body {
-      max-height: 150px;
-      padding: 12px 18px 16px 18px;
-      border-top-color: rgba(255, 255, 255, 0.05);
+    .service-card.active .service-content {
+      max-height: 220px;
+      padding: 0 24px 24px 24px;
+      border-top-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .service-description {
+      color: #c5cbd3;
+      font-size: 0.98rem;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    .service-action-row {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .service-book-btn {
+      background: #ffb400;
+      color: #111820;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .service-book-btn:hover {
+      background: #ffd35c;
+      box-shadow: 0 0 10px rgba(255,180,0,0.5);
     }
 
     .services-cta-container {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 35px;
+    }
+
+    /* MODAL POPUP FOR CAR INFO */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #151c26;
+      border: 2px solid #ffb400;
+      border-radius: 14px;
+      width: 90%;
+      max-width: 480px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.open .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: transparent;
+      border: none;
+      color: #9aa4b2;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-close:hover { color: #fff; }
+
+    .modal-title {
+      font-size: 1.4rem;
+      color: #ffb400;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .modal-subtitle {
+      font-size: 0.95rem;
+      color: #b0b8c4;
+      margin-bottom: 20px;
+    }
+
+    .car-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #d0d4da;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      background: #1c242e;
+      border: 1px solid #2b3544;
+      border-radius: 6px;
+      padding: 12px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: #ffb400;
+    }
+
+    .form-select option {
+      background: #1c242e;
+      color: #fff;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .modal-submit-btn {
+      background: #ffb400;
+      color: #111820;
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.2s;
+    }
+
+    .modal-submit-btn:hover {
+      background: #ffd35c;
+      box-shadow: 0 0 12px rgba(255,180,0,0.5);
     }
 
     /* CONTACT SECTION */
@@ -552,61 +749,139 @@
     <div class="dots" id="dots"></div>
   </section>
 
-  <!-- INTERACTIVE SERVICES ACCORDION -->
+  <!-- INTERACTIVE ACCORDION SERVICES -->
   <section id="services" class="services-wrapper">
     <div class="services-header">
       <h2 class="split-title">Our Services</h2>
-      <p>Click any service below to view details and professional on-site coverage.</p>
+      <p>Click any service to view details and provide your vehicle info.</p>
     </div>
 
-    <div class="simple-services-list">
+    <div class="interactive-services-list">
       
-      <div class="service-accordion-item">
-        <button class="service-header-btn">
-          <span>🔧 Brake Repair</span>
-          <span class="service-arrow">▼</span>
+      <!-- Service 1 -->
+      <div class="service-card">
+        <button class="service-toggle-btn">
+          <div class="service-title-area">
+            <span class="service-name">🔧 Brake Repair & Service</span>
+            <span class="service-hint">Pads, Rotors, Calipers & Fluid Checks</span>
+          </div>
+          <div class="service-indicator">▼</div>
         </button>
-        <div class="service-body">
-          Complete mobile brake service including pad replacement, rotor resurfacing/replacement, and fluid checks performed right at your driveway.
+        <div class="service-content">
+          <p class="service-description">Complete mobile brake service performed right at your driveway or workplace. Includes thorough pad and rotor inspection, replacement, and system bleeding.</p>
+          <div class="service-action-row">
+            <button class="service-book-btn" onclick="openCarModal('Brake Repair & Service')">Book This Service</button>
+          </div>
         </div>
       </div>
 
-      <div class="service-accordion-item">
-        <button class="service-header-btn">
-          <span>💻 Diagnostics</span>
-          <span class="service-arrow">▼</span>
+      <!-- Service 2 -->
+      <div class="service-card">
+        <button class="service-toggle-btn">
+          <div class="service-title-area">
+            <span class="service-name">💻 Diagnostics & Electrical</span>
+            <span class="service-hint">Check Engine Light, Sensors & Troubleshooting</span>
+          </div>
+          <div class="service-indicator">▼</div>
         </button>
-        <div class="service-body">
-          Advanced computer scanning to troubleshoot check engine lights, sensor issues, starting problems, and electrical faults accurately.
+        <div class="service-content">
+          <p class="service-description">Advanced computer scanning tools to identify check engine lights, battery faults, starter problems, alternator issues, and electrical gremlins on-site.</p>
+          <div class="service-action-row">
+            <button class="service-book-btn" onclick="openCarModal('Diagnostics & Electrical')">Book This Service</button>
+          </div>
         </div>
       </div>
 
-      <div class="service-accordion-item">
-        <button class="service-header-btn">
-          <span>🛢️ Oil Changes</span>
-          <span class="service-arrow">▼</span>
+      <!-- Service 3 -->
+      <div class="service-card">
+        <button class="service-toggle-btn">
+          <div class="service-title-area">
+            <span class="service-name">🛢️ On-Site Oil Changes</span>
+            <span class="service-hint">Quick, Clean Oil & Filter Replacement</span>
+          </div>
+          <div class="service-indicator">▼</div>
         </button>
-        <div class="service-body">
-          Fast, convenient, and clean mobile oil and filter changes using high-quality oil formulated for your specific vehicle.
+        <div class="service-content">
+          <p class="service-description">Skip the wait at conventional shops. We come to your location with high-grade oil and filters tailored specifically to your vehicle's specifications.</p>
+          <div class="service-action-row">
+            <button class="service-book-btn" onclick="openCarModal('On-Site Oil Changes')">Book This Service</button>
+          </div>
         </div>
       </div>
 
-      <div class="service-accordion-item">
-        <button class="service-header-btn">
-          <span>🔩 Suspension & Steering</span>
-          <span class="service-arrow">▼</span>
+      <!-- Service 4 -->
+      <div class="service-card">
+        <button class="service-toggle-btn">
+          <div class="service-title-area">
+            <span class="service-name">🔩 Suspension & Steering</span>
+            <span class="service-hint">Shocks, Struts, Ball Joints & Tie Rods</span>
+          </div>
+          <div class="service-indicator">▼</div>
         </button>
-        <div class="service-body">
-          On-site replacement of shocks, struts, ball joints, control arms, and tie rod ends to restore smooth handling and a safe ride.
+        <div class="service-content">
+          <p class="service-description">Restore smooth handling and a safe, stable ride. We replace worn-out shocks, struts, control arms, and steering components right where your car is parked.</p>
+          <div class="service-action-row">
+            <button class="service-book-btn" onclick="openCarModal('Suspension & Steering')">Book This Service</button>
+          </div>
         </div>
       </div>
 
     </div>
 
     <div class="services-cta-container">
-      <a href="tel:7084381640" class="btn-primary">Call For Service & Estimates</a>
+      <a href="tel:7084381640" class="btn-primary">Call For Custom Quotes & Inquiries</a>
     </div>
   </section>
+
+  <!-- CAR INFO MODAL POPUP -->
+  <div class="modal-overlay" id="carModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeCarModal()">&times;</button>
+      <h3 class="modal-title" id="modalServiceTitle">Vehicle Information</h3>
+      <p class="modal-subtitle">Tell us about your car so we can prepare your service.</p>
+
+      <form class="car-form" onsubmit="submitCarInfo(event)">
+        <input type="hidden" id="selectedServiceName">
+        
+        <div class="form-group">
+          <label for="carYear">Year</label>
+          <input type="text" id="carYear" class="form-input" placeholder="e.g., 2018" required>
+        </div>
+
+        <div class="form-group">
+          <label for="carModelSelect">Common Vehicle Models</label>
+          <select id="carModelSelect" class="form-select" onchange="handleModelSelection()">
+            <option value="">-- Select Common Model (Optional) --</option>
+            <option value="Ford F-150">Ford F-150</option>
+            <option value="Toyota Camry">Toyota Camry</option>
+            <option value="Toyota Corolla">Toyota Corolla</option>
+            <option value="Honda Civic">Honda Civic</option>
+            <option value="Honda Accord">Honda Accord</option>
+            <option value="Chevrolet Silverado">Chevrolet Silverado</option>
+            <option value="Chevrolet Equinox">Chevrolet Equinox</option>
+            <option value="Nissan Altima">Nissan Altima</option>
+            <option value="Ram 1500">Ram 1500</option>
+            <option value="Jeep Grand Cherokee">Jeep Grand Cherokee</option>
+            <option value="Ford Explorer">Ford Explorer</option>
+            <option value="Toyota RAV4">Toyota RAV4</option>
+            <option value="Honda CR-V">Honda CR-V</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="carMakeModel">Make & Model (Type manually if not listed)</label>
+          <input type="text" id="carMakeModel" class="form-input" placeholder="e.g., Ford Focus or BMW 328i" required>
+        </div>
+
+        <div class="form-group">
+          <label for="carIssue">Specific Issue / Details (Optional)</label>
+          <textarea id="carIssue" class="form-textarea" placeholder="Describe any symptoms, noises, or specific requests..."></textarea>
+        </div>
+
+        <button type="submit" class="modal-submit-btn">Continue to Call & Dispatch</button>
+      </form>
+    </div>
+  </div>
 
   <!-- ABOUT -->
   <section id="about" class="split">
@@ -665,22 +940,54 @@
 
   <!-- SCRIPTS -->
   <script>
-    // Accordion Dropdown Functionality for Services
-    document.querySelectorAll('.service-header-btn').forEach(button => {
+    // Interactive Service Cards Accordion
+    document.querySelectorAll('.service-toggle-btn').forEach(button => {
       button.addEventListener('click', () => {
-        const item = button.parentElement;
+        const card = button.parentElement;
         
-        // Optional: Close other open accordion items for a cleaner single-open view
-        document.querySelectorAll('.service-accordion-item').forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.classList.remove('active');
+        document.querySelectorAll('.service-card').forEach(otherCard => {
+          if (otherCard !== card) {
+            otherCard.classList.remove('active');
           }
         });
 
-        // Toggle current clicked item
-        item.classList.toggle('active');
+        card.classList.toggle('active');
       });
     });
+
+    // Modal Popup Controls
+    function openCarModal(serviceName) {
+      document.getElementById('selectedServiceName').value = serviceName;
+      document.getElementById('modalServiceTitle').innerText = 'Request: ' + serviceName;
+      document.getElementById('carModal').classList.add('open');
+    }
+
+    function closeCarModal() {
+      document.getElementById('carModal').classList.remove('open');
+    }
+
+    // Auto-fill Make & Model when choosing from the dropdown
+    function handleModelSelection() {
+      const select = document.getElementById('carModelSelect');
+      const input = document.getElementById('carMakeModel');
+      if (select.value) {
+        input.value = select.value;
+      }
+    }
+
+    // Handle Form Submission
+    function submitCarInfo(e) {
+      e.preventDefault();
+      const service = document.getElementById('selectedServiceName').value;
+      const year = document.getElementById('carYear').value;
+      const carInfo = document.getElementById('carMakeModel').value;
+      const issue = document.getElementById('carIssue').value;
+
+      closeCarModal();
+      
+      alert(`Thank you! Vehicle info saved: ${year} ${carInfo} for ${service}.\n\nConnecting you now to dispatch...`);
+      window.location.href = "tel:7084381640";
+    }
 
     // Slider Initialization
     function initSlider(sliderId, dotsId) {
